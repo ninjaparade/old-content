@@ -24,7 +24,11 @@
 <script>
 	$(function() {
 		
-		$('.redactor').redactor({ minHeight: 300});
+		$('#content').redactor({ 
+			minHeight: 300,
+			tidyHtml: true,
+
+		});
 
 		$(document).on('keyup', '#title', function()
 		{
@@ -121,7 +125,7 @@
 							<option value="{{$author->id}}" {{ Input::old('author', $author->id) == $post->author_id ? ' selected="selected"' : null }}>{{$author->name}}</option>
 						@endforeach	
 					</select>
-					
+
 					<span class="help-block">{{{ $errors->first('author_id', ':message') }}}</span>
 
 				</div>
@@ -154,18 +158,46 @@
 
 				
 
-				
+				<div class="form-group{{ $errors->first('tags', ' has-error') }}">
+
+					<label for="publish_status" class="control-label">{{{ trans('ninjaparade/content::posts/form.tags') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.tags_help') }}}"></i></label>
+
+					<select class="form-control" name="tags[]" id="tags" required multiple>
+						@foreach ($post->tags as $tag)
+							<option value="{{$tag->name}}" selected="selected">{{$tag->name}}</option>
+						@endforeach
+						 @foreach ($tags as $tag)
+                			<option value="{{$tag->name}}">{{$tag->name}}</option>
+           				@endforeach
+					</select>
+
+					<span class="help-block">{{{ $errors->first('publish_status', ':message') }}}</span>
+
+				</div>
+
+				<div class="form-group{{ $errors->first('category', ' has-error') }}">
+
+					<label for="post_type" class="control-label">{{{ trans('ninjaparade/content::posts/form.category') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.category_help') }}}"></i></label>
+
+
+					<select class="form-control" name="category" id="category" required>
+						@foreach ($categories as $category)
+							<option value="{{$category->slug}}" {{ Input::old('category', $category->slug) == $post->category ? ' selected="selected"' : null }}>{{$category->name}}</option>
+						@endforeach	
+					</select>
+
+					<span class="help-block">{{{ $errors->first('post_type', ':message') }}}</span>
+
+				</div>
 
 				<div class="form-group{{ $errors->first('publish_status', ' has-error') }}">
 
 					<label for="publish_status" class="control-label">{{{ trans('ninjaparade/content::posts/form.publish_status') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.publish_status_help') }}}"></i></label>
 
-					<div class="checkbox">
-						<label>
-							<input type="hidden" name="publish_status" id="publish_status" value="0" checked>
-							<input type="checkbox" name="publish_status" id="publish_status" @if($post->publish_status) }}}) checked @endif value="1"> {{ ucfirst('publish_status') }}
-						</label>
-					</div>
+					<select class="form-control" name="publish_status" id="publish_status" required>
+							<option value="0" {{ Input::old('publish_status', 0) == $post->publish_status ? ' selected="selected"' : null }}>Draft</option>
+							<option value="1" {{ Input::old('publish_status', 1) == $post->publish_status ? ' selected="selected"' : null }}>Published</option>
+					</select>
 
 					<span class="help-block">{{{ $errors->first('publish_status', ':message') }}}</span>
 
@@ -175,12 +207,11 @@
 
 					<label for="private" class="control-label">{{{ trans('ninjaparade/content::posts/form.private') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.private_help') }}}"></i></label>
 
-					<div class="checkbox">
-						<label>
-							<input type="hidden" name="private" id="private" value="0" checked>
-							<input type="checkbox" name="private" id="private" @if($post->private) }}}) checked @endif value="1"> {{ ucfirst('private') }}
-						</label>
-					</div>
+					<select class="form-control" name="private" id="private" required>
+							<option value="0" {{ Input::old('private', 0) == $post->private ? ' selected="selected"' : null }}>Public</option>
+							<option value="1" {{ Input::old('private', 1) == $post->private ? ' selected="selected"' : null }}>Private</option>
+					</select>
+
 
 					<span class="help-block">{{{ $errors->first('private', ':message') }}}</span>
 
