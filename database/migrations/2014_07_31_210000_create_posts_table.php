@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration {
 			$table->increments('id');
 			$table->integer('author_id')->unsigned();
 			$table->string('post_type')->nullable();
-			$table->string('slug');
+			$table->string('slug')->unique();
 			$table->string('pullquote')->nullable();
 			$table->string('title');
 			$table->longText('content');
@@ -27,7 +27,6 @@ class CreatePostsTable extends Migration {
 
 			$table->index('slug');
 			$table->index('author_id');
-			$table->unique('slug');
 			
 			$table->engine = 'InnoDB';
 		});
