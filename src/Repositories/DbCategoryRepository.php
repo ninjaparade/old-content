@@ -6,6 +6,7 @@ use Illuminate\Filesystem\Filesystem;
 use Ninjaparade\Content\Models\Category;
 use Symfony\Component\Finder\Finder;
 use Validator;
+use Str;
 
 class DbCategoryRepository implements CategoryRepositoryInterface {
 
@@ -76,6 +77,26 @@ class DbCategoryRepository implements CategoryRepositoryInterface {
 			->where('id', (int) $id)
 			->first();
 	}
+
+	public function findOrCreate($name)
+	{
+		$slug = Str::slug($name);
+
+		$category = $this
+			->createModel()
+			->where('slug', $slug )
+			->first();
+
+		if( $category )
+		{
+			return $category;
+
+		}else{
+
+			return $this->create([ 'name' => $name , 'slug' => $slug ]);
+		}
+	}
+
 
 	/**
 	 * {@inheritDoc}
