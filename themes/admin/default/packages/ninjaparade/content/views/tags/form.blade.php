@@ -10,11 +10,21 @@
 {{ Asset::queue('bootstrap.tabs', 'bootstrap/js/tab.js', 'jquery') }}
 {{ Asset::queue('content', 'ninjaparade/content::js/script.js', 'jquery') }}
 
+{{ Asset::queue('platform.slugify.js', 'platform/js/slugify.js', 'jquery') }}
 {{-- Inline scripts --}}
 @section('scripts')
+<script>
+	$(function() {
+		
+		$(document).on('keyup', '#name', function()
+		{
+			$('#slug').val($(this).val().slugify());
+			
+		});
+	});
+</script>
 @parent
 @stop
-
 {{-- Inline styles --}}
 @section('styles')
 @parent
