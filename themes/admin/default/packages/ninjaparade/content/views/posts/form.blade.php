@@ -20,7 +20,14 @@
 @section('scripts')
 <script>
 	$(function() {
+		
 		$('.redactor').redactor({ minHeight: 300});
+
+		$(document).on('keyup', '#title', function()
+		{
+			$('#slug').val($(this).val().slugify());
+			
+		});
 	});
 </script>
 @parent
@@ -104,7 +111,12 @@
 
 					<label for="post_type" class="control-label">{{{ trans('ninjaparade/content::posts/form.post_type') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.post_type_help') }}}"></i></label>
 
-					<input type="text" class="form-control" name="post_type" id="post_type" placeholder="{{{ trans('ninjaparade/content::posts/form.post_type') }}}" value="{{{ Input::old('post_type', $post->post_type) }}}">
+
+					<select class="form-control" name="post_type" id="post_type" required>
+						@foreach ($posttypes as $posttype)
+							<option value="{{$posttype->slug}}" {{ Input::old('post_type', $posttype->slug) == $post->post_type ? ' selected="selected"' : null }}>{{$posttype->title}}</option>
+						@endforeach	
+					</select>
 
 					<span class="help-block">{{{ $errors->first('post_type', ':message') }}}</span>
 
@@ -115,7 +127,7 @@
 
 					<label for="pullquote" class="control-label">{{{ trans('ninjaparade/content::posts/form.pullquote') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.pullquote_help') }}}"></i></label>
 
-					<input type="text" class="form-control" name="pullquote" id="pullquote" placeholder="{{{ trans('ninjaparade/content::posts/form.pullquote') }}}" value="{{{ Input::old('pullquote', $post->pullquote) }}}">
+					<textarea type="text" class="form-control" name="pullquote" id="pullquote" placeholder="{{{ trans('ninjaparade/content::posts/form.pullquote') }}}" value="{{{ Input::old('pullquote', $post->pullquote) }}}"></textarea>
 
 					<span class="help-block">{{{ $errors->first('pullquote', ':message') }}}</span>
 
