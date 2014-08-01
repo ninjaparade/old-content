@@ -425,30 +425,30 @@ return [
 	'permissions' => function()
 	{
 		return [
-			'Ninjaparade\Content\Controllers\Admin\PostsController@index,grid'   => Lang::get('ninjaparade/content::posts/permissions.index'),
-			'Ninjaparade\Content\Controllers\Admin\PostsController@create,store' => Lang::get('ninjaparade/content::posts/permissions.create'),
-			'Ninjaparade\Content\Controllers\Admin\PostsController@edit,update'  => Lang::get('ninjaparade/content::posts/permissions.edit'),
-			'Ninjaparade\Content\Controllers\Admin\PostsController@delete'       => Lang::get('ninjaparade/content::posts/permissions.delete'),
-
-			'Ninjaparade\Content\Controllers\Admin\AuthorsController@index,grid'   => Lang::get('ninjaparade/content::authors/permissions.index'),
-			'Ninjaparade\Content\Controllers\Admin\AuthorsController@create,store' => Lang::get('ninjaparade/content::authors/permissions.create'),
-			'Ninjaparade\Content\Controllers\Admin\AuthorsController@edit,update'  => Lang::get('ninjaparade/content::authors/permissions.edit'),
-			'Ninjaparade\Content\Controllers\Admin\AuthorsController@delete'       => Lang::get('ninjaparade/content::authors/permissions.delete'),
-
+			'Ninjaparade\Content\Controllers\Admin\PostsController@index,grid'        => Lang::get('ninjaparade/content::posts/permissions.index'),
+			'Ninjaparade\Content\Controllers\Admin\PostsController@create,store'      => Lang::get('ninjaparade/content::posts/permissions.create'),
+			'Ninjaparade\Content\Controllers\Admin\PostsController@edit,update'       => Lang::get('ninjaparade/content::posts/permissions.edit'),
+			'Ninjaparade\Content\Controllers\Admin\PostsController@delete'            => Lang::get('ninjaparade/content::posts/permissions.delete'),
+			
+			'Ninjaparade\Content\Controllers\Admin\AuthorsController@index,grid'      => Lang::get('ninjaparade/content::authors/permissions.index'),
+			'Ninjaparade\Content\Controllers\Admin\AuthorsController@create,store'    => Lang::get('ninjaparade/content::authors/permissions.create'),
+			'Ninjaparade\Content\Controllers\Admin\AuthorsController@edit,update'     => Lang::get('ninjaparade/content::authors/permissions.edit'),
+			'Ninjaparade\Content\Controllers\Admin\AuthorsController@delete'          => Lang::get('ninjaparade/content::authors/permissions.delete'),
+			
 			'Ninjaparade\Content\Controllers\Admin\CategoriesController@index,grid'   => Lang::get('ninjaparade/content::categories/permissions.index'),
 			'Ninjaparade\Content\Controllers\Admin\CategoriesController@create,store' => Lang::get('ninjaparade/content::categories/permissions.create'),
 			'Ninjaparade\Content\Controllers\Admin\CategoriesController@edit,update'  => Lang::get('ninjaparade/content::categories/permissions.edit'),
 			'Ninjaparade\Content\Controllers\Admin\CategoriesController@delete'       => Lang::get('ninjaparade/content::categories/permissions.delete'),
-
-			'Ninjaparade\Content\Controllers\Admin\TagsController@index,grid'   => Lang::get('ninjaparade/content::tags/permissions.index'),
-			'Ninjaparade\Content\Controllers\Admin\TagsController@create,store' => Lang::get('ninjaparade/content::tags/permissions.create'),
-			'Ninjaparade\Content\Controllers\Admin\TagsController@edit,update'  => Lang::get('ninjaparade/content::tags/permissions.edit'),
-			'Ninjaparade\Content\Controllers\Admin\TagsController@delete'       => Lang::get('ninjaparade/content::tags/permissions.delete'),
-
-			'Ninjaparade\Content\Controllers\Admin\PosttypesController@index,grid'   => Lang::get('ninjaparade/content::posttypes/permissions.index'),
-			'Ninjaparade\Content\Controllers\Admin\PosttypesController@create,store' => Lang::get('ninjaparade/content::posttypes/permissions.create'),
-			'Ninjaparade\Content\Controllers\Admin\PosttypesController@edit,update'  => Lang::get('ninjaparade/content::posttypes/permissions.edit'),
-			'Ninjaparade\Content\Controllers\Admin\PosttypesController@delete'       => Lang::get('ninjaparade/content::posttypes/permissions.delete'),
+			
+			'Ninjaparade\Content\Controllers\Admin\TagsController@index,grid'         => Lang::get('ninjaparade/content::tags/permissions.index'),
+			'Ninjaparade\Content\Controllers\Admin\TagsController@create,store'       => Lang::get('ninjaparade/content::tags/permissions.create'),
+			'Ninjaparade\Content\Controllers\Admin\TagsController@edit,update'        => Lang::get('ninjaparade/content::tags/permissions.edit'),
+			'Ninjaparade\Content\Controllers\Admin\TagsController@delete'             => Lang::get('ninjaparade/content::tags/permissions.delete'),
+			
+			'Ninjaparade\Content\Controllers\Admin\PosttypesController@index,grid'    => Lang::get('ninjaparade/content::posttypes/permissions.index'),
+			'Ninjaparade\Content\Controllers\Admin\PosttypesController@create,store'  => Lang::get('ninjaparade/content::posttypes/permissions.create'),
+			'Ninjaparade\Content\Controllers\Admin\PosttypesController@edit,update'   => Lang::get('ninjaparade/content::posttypes/permissions.edit'),
+			'Ninjaparade\Content\Controllers\Admin\PosttypesController@delete'        => Lang::get('ninjaparade/content::posttypes/permissions.delete'),
 		];
 	},
 
@@ -511,36 +511,66 @@ return [
 				'class' => 'fa fa-circle-o',
 				'uri' => 'content',
 				'children' => [
-					[
-						'slug' => 'admin-ninjaparade-content-post',
-						'name' => 'Posts',
-						'class' => 'fa fa-circle-o',
-						'uri' => 'content/posts',
-					],
-					[
-						'slug' => 'admin-ninjaparade-content-author',
-						'name' => 'Authors',
-						'class' => 'fa fa-circle-o',
-						'uri' => 'content/authors',
-					],
-					[
-						'slug' => 'admin-ninjaparade-content-category',
-						'name' => 'Categories',
-						'class' => 'fa fa-circle-o',
-						'uri' => 'content/categories',
-					],
-					[
-						'slug' => 'admin-ninjaparade-content-tag',
-						'name' => 'Tags',
-						'class' => 'fa fa-circle-o',
-						'uri' => 'content/tags',
-					],
-					[
-						'slug' => 'admin-ninjaparade-content-posttype',
-						'name' => 'Posttypes',
-						'class' => 'fa fa-circle-o',
-						'uri' => 'content/posttypes',
-					],
+						[
+							'slug'  => 'admin-ninjaparade-content-post',
+							'name'  => 'All Posts',
+							'class' => 'fa fa-circle-o',
+							'uri'   => 'content/posts',
+						],
+						[
+							'slug'  => 'admin-ninjaparade-create-content-post',
+							'name'  => 'Add Post',
+							'class' => 'fa fa-circle-o',
+							'uri'   => 'content/posts/create',
+						],
+						[
+							'slug'  => 'admin-ninjaparade-content-author',
+							'name'  => 'All Authors',
+							'class' => 'fa fa-circle-o',
+							'uri'   => 'content/authors',
+						],
+						[
+							'slug'  => 'admin-ninjaparade-create-content-author',
+							'name'  => 'Add Author',
+							'class' => 'fa fa-circle-o',
+							'uri'   => 'content/authors/create',
+						],
+						[
+							'slug'  => 'admin-ninjaparade-content-category',
+							'name'  => 'All Categories',
+							'class' => 'fa fa-circle-o',
+							'uri'   => 'content/categories',
+						],
+						[
+							'slug'  => 'admin-ninjaparade-create-content-category',
+							'name'  => 'Add Categories',
+							'class' => 'fa fa-circle-o',
+							'uri'   => 'content/categories/create',
+						],
+						[
+							'slug'  => 'admin-ninjaparade-content-tag',
+							'name'  => 'All Tags',
+							'class' => 'fa fa-circle-o',
+							'uri'   => 'content/tags',
+						],
+						[
+							'slug'  => 'admin-ninjaparade-create-content-tag',
+							'name'  => 'All Tags',
+							'class' => 'fa fa-circle-o',
+							'uri'   => 'content/tags/create',
+						],
+						[
+							'slug'  => 'admin-ninjaparade-content-posttype',
+							'name'  => 'All Posttypes',
+							'class' => 'fa fa-circle-o',
+							'uri'   => 'content/posttypes',
+						],
+						[
+							'slug'  => 'admin-ninjaparade-create-content-posttype',
+							'name'  => 'Add Posttypes',
+							'class' => 'fa fa-circle-o',
+							'uri'   => 'content/posttypes/create',
+						],
 				],
 			],
 		],
