@@ -33,6 +33,15 @@ class DbPostRepository implements PostRepositoryInterface {
 	];
 
 	/**
+	 * Holds the relationships to return with post.
+	 *
+	 * @var array
+	 */
+	protected $with = [
+		'categories', 'author'
+	];
+
+	/**
 	 * Constructor.
 	 *
 	 * @param  string  $model
@@ -52,7 +61,8 @@ class DbPostRepository implements PostRepositoryInterface {
 	public function grid()
 	{
 		return $this
-			->createModel();
+			->createModel()
+			->with($this->with);
 	}
 
 	/**
@@ -63,6 +73,7 @@ class DbPostRepository implements PostRepositoryInterface {
 		return $this
 			->createModel()
 			->newQuery()
+			->with($this->with)
 			->get();
 	}
 
@@ -74,8 +85,26 @@ class DbPostRepository implements PostRepositoryInterface {
 		return $this
 			->createModel()
 			->where('id', (int) $id)
+			->with($this->with)
 			->first();
 	}
+
+	public function attachCategory($post, $category)
+	{
+		 $post->categories()->detach();
+		 $post->categories()->attach($category->id);
+
+		 return true;
+	}
+
+	public function attachTags($post, $tags)
+	{
+		 $post->tags()->detach();
+		 $post->tags()->attach($tags);
+
+		 return true;
+	}
+
 
 	/**
 	 * {@inheritDoc}
