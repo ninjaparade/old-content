@@ -28,4 +28,10 @@ class Category extends Entity {
 	 */
 	protected $eavNamespace = 'ninjaparade/content.category';
 
+
+	public function categories()
+    {
+        return $this->belongsToMany('Ninjaparade\Content\Models\Post');
+    }
+
 }
