@@ -10,8 +10,19 @@
 {{ Asset::queue('bootstrap.tabs', 'bootstrap/js/tab.js', 'jquery') }}
 {{ Asset::queue('content', 'ninjaparade/content::js/script.js', 'jquery') }}
 
+{{ Asset::queue('imperavi.redactor.js', 'imperavi/js/redactor.min.js', 'jquery') }}
+{{ Asset::queue('imperavi.redactor.css', 'imperavi/css/redactor.css') }}
+
+{{ Asset::queue('platform.slugify.js', 'platform/js/slugify.js', 'jquery') }}
+
+
 {{-- Inline scripts --}}
 @section('scripts')
+<script>
+	$(function() {
+		$('.redactor').redactor({ minHeight: 300});
+	});
+</script>
 @parent
 @stop
 
@@ -49,6 +60,35 @@
 		<div class="tab-pane active" id="general">
 
 			<div class="row">
+				<div class="form-group{{ $errors->first('title', ' has-error') }}">
+
+					<label for="title" class="control-label">{{{ trans('ninjaparade/content::posts/form.title') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.title_help') }}}"></i></label>
+
+					<input type="text" class="form-control" name="title" id="title" placeholder="{{{ trans('ninjaparade/content::posts/form.title') }}}" value="{{{ Input::old('title', $post->title) }}}">
+
+					<span class="help-block">{{{ $errors->first('title', ':message') }}}</span>
+
+				</div>
+
+				<div class="form-group{{ $errors->first('slug', ' has-error') }}">
+
+					<label for="slug" class="control-label">{{{ trans('ninjaparade/content::posts/form.slug') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.slug_help') }}}"></i></label>
+
+					<input type="text" class="form-control" name="slug" id="slug" placeholder="{{{ trans('ninjaparade/content::posts/form.slug') }}}" value="{{{ Input::old('slug', $post->slug) }}}">
+
+					<span class="help-block">{{{ $errors->first('slug', ':message') }}}</span>
+
+				</div>
+
+				<div class="form-group{{ $errors->first('content', ' has-error') }}">
+
+					<label for="content" class="control-label">{{{ trans('ninjaparade/content::posts/form.content') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.content_help') }}}"></i></label>
+
+					<textarea class="form-control redactor" name="content" id="content" placeholder="{{{ trans('ninjaparade/content::posts/form.content') }}}">{{{ Input::old('content', $post->content) }}}</textarea>
+
+					<span class="help-block">{{{ $errors->first('content', ':message') }}}</span>
+
+				</div>
 
 				<div class="form-group{{ $errors->first('author_id', ' has-error') }}">
 
@@ -70,15 +110,6 @@
 
 				</div>
 
-				<div class="form-group{{ $errors->first('slug', ' has-error') }}">
-
-					<label for="slug" class="control-label">{{{ trans('ninjaparade/content::posts/form.slug') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.slug_help') }}}"></i></label>
-
-					<input type="text" class="form-control" name="slug" id="slug" placeholder="{{{ trans('ninjaparade/content::posts/form.slug') }}}" value="{{{ Input::old('slug', $post->slug) }}}">
-
-					<span class="help-block">{{{ $errors->first('slug', ':message') }}}</span>
-
-				</div>
 
 				<div class="form-group{{ $errors->first('pullquote', ' has-error') }}">
 
@@ -90,25 +121,9 @@
 
 				</div>
 
-				<div class="form-group{{ $errors->first('title', ' has-error') }}">
+				
 
-					<label for="title" class="control-label">{{{ trans('ninjaparade/content::posts/form.title') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.title_help') }}}"></i></label>
-
-					<input type="text" class="form-control" name="title" id="title" placeholder="{{{ trans('ninjaparade/content::posts/form.title') }}}" value="{{{ Input::old('title', $post->title) }}}">
-
-					<span class="help-block">{{{ $errors->first('title', ':message') }}}</span>
-
-				</div>
-
-				<div class="form-group{{ $errors->first('content', ' has-error') }}">
-
-					<label for="content" class="control-label">{{{ trans('ninjaparade/content::posts/form.content') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.content_help') }}}"></i></label>
-
-					<textarea class="form-control" name="content" id="content" placeholder="{{{ trans('ninjaparade/content::posts/form.content') }}}">{{{ Input::old('content', $post->content) }}}</textarea>
-
-					<span class="help-block">{{{ $errors->first('content', ':message') }}}</span>
-
-				</div>
+				
 
 				<div class="form-group{{ $errors->first('publish_status', ' has-error') }}">
 
