@@ -8,6 +8,8 @@ use Redirect;
 use Response;
 use View;
 use Ninjaparade\Content\Repositories\PostRepositoryInterface;
+use Ninjaparade\Content\Repositories\AuthorRepositoryInterface;
+use Ninjaparade\Content\Repositories\PosttypeRepositoryInterface;
 
 class PostsController extends AdminController {
 
@@ -26,6 +28,20 @@ class PostsController extends AdminController {
 	protected $post;
 
 	/**
+	 * The Content repository.
+	 *
+	 * @var \Ninjaparade\Content\Repositories\AuthorRepositoryInterface
+	 */
+	protected $author;
+
+	/**
+	 * The Content repository.
+	 *
+	 * @var \Ninjaparade\Content\Repositories\PosttypeRepositoryInterface
+	 */
+	protected $posttype;
+
+	/**
 	 * Holds all the mass actions we can execute.
 	 *
 	 * @var array
@@ -42,11 +58,13 @@ class PostsController extends AdminController {
 	 * @param  \Ninjaparade\Content\Repositories\PostRepositoryInterface  $post
 	 * @return void
 	 */
-	public function __construct(PostRepositoryInterface $post)
+	public function __construct(PostRepositoryInterface $post, AuthorRepositoryInterface $author, PosttypeRepositoryInterface $posttype)
 	{
 		parent::__construct();
 
-		$this->post = $post;
+		$this->post     = $post;
+		$this->author   = $author;
+		$this->posttype = $posttype;
 	}
 
 	/**
@@ -197,8 +215,11 @@ class PostsController extends AdminController {
 			$post = $this->post->createModel();
 		}
 
+		$authors = $this->author->findAll();
+		$posttypes = $this->posttype->findAll();
+
 		// Show the page
-		return View::make('ninjaparade/content::posts.form', compact('mode', 'post'));
+		return View::make('ninjaparade/content::posts.form', compact('mode', 'post', 'authors', 'posttypes'));
 	}
 
 	/**
