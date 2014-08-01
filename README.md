@@ -11,7 +11,7 @@ add the following to your **repositories** in your ***composer.json***
 and add 
 
 ```
-"ninjaparade/admin-npadmin" : "dev-master"
+"ninjaparade/content" : "dev-master"
 ```
 
 to your require block.
