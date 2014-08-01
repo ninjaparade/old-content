@@ -6,6 +6,7 @@ use Illuminate\Filesystem\Filesystem;
 use Ninjaparade\Content\Models\Tag;
 use Symfony\Component\Finder\Finder;
 use Validator;
+use Str;
 
 class DbTagRepository implements TagRepositoryInterface {
 
@@ -103,6 +104,25 @@ class DbTagRepository implements TagRepositoryInterface {
 		$this->dispatcher->fire('ninjaparade.content.tag.created', $tag);
 
 		return $tag;
+	}
+
+	public function findOrCreate($name)
+	{
+		$slug = Str::slug($name);
+
+		$tag = $this
+			->createModel()
+			->where('slug', $slug )
+			->first();
+
+		if( $tag )
+		{
+			return $tag;
+
+		}else{
+
+			return $this->create([ 'name' => $name , 'slug' => $slug ]);
+		}
 	}
 
 	/**
