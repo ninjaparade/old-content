@@ -12,7 +12,6 @@ class CreateTablePivotes extends Migration {
 	 */
 	public function up()
 	{
-		//
 		//pivotes
 		Schema::create('post_tag', function(Blueprint $table)
 	    {
@@ -35,7 +34,6 @@ class CreateTablePivotes extends Migration {
 
 			$table->engine = 'InnoDB';
 		});
-
 
 	}
 
