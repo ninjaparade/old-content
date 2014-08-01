@@ -65,7 +65,7 @@ return [
 	|
 	*/
 
-	'version' => '0.1.0',
+	'version' => '0.1.1',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -175,6 +175,18 @@ return [
 				return new Ninjaparade\Content\Repositories\DbTagRepository($model, $app['events']);
 			});
 		}
+
+		$PosttypeRepository = 'Ninjaparade\Content\Repositories\PosttypeRepositoryInterface';
+
+		if ( ! $app->bound($PosttypeRepository))
+		{
+			$app->bind($PosttypeRepository, function($app)
+			{
+				$model = get_class($app['Ninjaparade\Content\Models\Posttype']);
+
+				return new Ninjaparade\Content\Repositories\DbPosttypeRepository($model, $app['events']);
+			});
+		}
 	},
 
 	/*
@@ -225,6 +237,15 @@ return [
 		{
 			// Get the model
 			$model = $app['Ninjaparade\Content\Models\Tag'];
+
+			// Register a new attribute namespace
+			$app['Platform\Attributes\Models\Attribute']->registerNamespace($model);
+		}
+
+		if (class_exists('Ninjaparade\Content\Models\Posttype'))
+		{
+			// Get the model
+			$model = $app['Ninjaparade\Content\Models\Posttype'];
 
 			// Register a new attribute namespace
 			$app['Platform\Attributes\Models\Attribute']->registerNamespace($model);
@@ -327,6 +348,26 @@ return [
 				Route::get('/', 'TagsController@index');
 			});
 		});
+
+		Route::group(['namespace' => 'Ninjaparade\Content\Controllers'], function()
+		{
+			Route::group(['prefix' => admin_uri().'/content/posttypes', 'namespace' => 'Admin'], function()
+			{
+				Route::get('/', 'PosttypesController@index');
+				Route::post('/', 'PosttypesController@executeAction');
+				Route::get('grid', 'PosttypesController@grid');
+				Route::get('create', 'PosttypesController@create');
+				Route::post('create', 'PosttypesController@store');
+				Route::get('{id}/edit', 'PosttypesController@edit');
+				Route::post('{id}/edit', 'PosttypesController@update');
+				Route::get('{id}/delete', 'PosttypesController@delete');
+			});
+
+			Route::group(['prefix' => 'content/posttypes', 'namespace' => 'Frontend'], function()
+			{
+				Route::get('/', 'PosttypesController@index');
+			});
+		});
 	},
 
 	/*
@@ -349,6 +390,8 @@ return [
 	*/
 
 	'seeds' => [
+
+		'Ninjaparade\Content\Database\Seeds\ExtensionAttributesSeederTableSeeder',
 
 	],
 
@@ -401,6 +444,11 @@ return [
 			'Ninjaparade\Content\Controllers\Admin\TagsController@create,store' => Lang::get('ninjaparade/content::tags/permissions.create'),
 			'Ninjaparade\Content\Controllers\Admin\TagsController@edit,update'  => Lang::get('ninjaparade/content::tags/permissions.edit'),
 			'Ninjaparade\Content\Controllers\Admin\TagsController@delete'       => Lang::get('ninjaparade/content::tags/permissions.delete'),
+
+			'Ninjaparade\Content\Controllers\Admin\PosttypesController@index,grid'   => Lang::get('ninjaparade/content::posttypes/permissions.index'),
+			'Ninjaparade\Content\Controllers\Admin\PosttypesController@create,store' => Lang::get('ninjaparade/content::posttypes/permissions.create'),
+			'Ninjaparade\Content\Controllers\Admin\PosttypesController@edit,update'  => Lang::get('ninjaparade/content::posttypes/permissions.edit'),
+			'Ninjaparade\Content\Controllers\Admin\PosttypesController@delete'       => Lang::get('ninjaparade/content::posttypes/permissions.delete'),
 		];
 	},
 
@@ -486,6 +534,12 @@ return [
 						'name' => 'Tags',
 						'class' => 'fa fa-circle-o',
 						'uri' => 'content/tags',
+					],
+					[
+						'slug' => 'admin-ninjaparade-content-posttype',
+						'name' => 'Posttypes',
+						'class' => 'fa fa-circle-o',
+						'uri' => 'content/posttypes',
 					],
 				],
 			],
