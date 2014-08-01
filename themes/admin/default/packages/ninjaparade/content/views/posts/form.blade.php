@@ -101,8 +101,13 @@
 
 					<label for="author_id" class="control-label">{{{ trans('ninjaparade/content::posts/form.author_id') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.author_id_help') }}}"></i></label>
 
-					<input type="text" class="form-control" name="author_id" id="author_id" placeholder="{{{ trans('ninjaparade/content::posts/form.author_id') }}}" value="{{{ Input::old('author_id', $post->author_id) }}}">
 
+					<select class="form-control" name="author_id" id="author_id" required>
+						@foreach ($authors as $author)
+							<option value="{{$author->id}}" {{ Input::old('author', $author->id) == $post->author_id ? ' selected="selected"' : null }}>{{$author->name}}</option>
+						@endforeach	
+					</select>
+					
 					<span class="help-block">{{{ $errors->first('author_id', ':message') }}}</span>
 
 				</div>
