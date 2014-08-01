@@ -15,6 +15,9 @@
 
 {{ Asset::queue('platform.slugify.js', 'platform/js/slugify.js', 'jquery') }}
 
+{{ Asset::queue('selectize.js', 'selectize/js/selectize.js', 'jquery') }}
+
+{{ Asset::queue('selectize.css', 'selectize/css/selectize.css', 'styles') }}
 
 {{-- Inline scripts --}}
 @section('scripts')
