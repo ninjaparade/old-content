@@ -28,4 +28,12 @@ class Author extends Entity {
 	 */
 	protected $eavNamespace = 'ninjaparade/content.author';
 
+
+
+
+    public function author()
+    {
+        return $this->belongsTo('Ninjaparade\Content\Models\Posts');
+    }
+
 }
