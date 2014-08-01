@@ -16,6 +16,7 @@ class CreatePostsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('author_id')->unsigned();
+			$table->foreign('author_id')->references('id')->on('author')->onUpdate('cascade')->onDelete('restrict');
 			$table->string('post_type')->nullable();
 			$table->string('slug')->unique();
 			$table->string('pullquote')->nullable();
