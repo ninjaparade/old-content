@@ -59,7 +59,7 @@
 
 {{-- Content form --}}
 <form id="content-form" action="{{ Request::fullUrl() }}" method="post" accept-char="UTF-8" autocomplete="off">
-				<a href="#" class="btn btn-info" data-toggle="modal" data-target="#mediaModal"><i class="fa fa-plus"></i> {{{ trans('button.upload') }}}</a>
+				
 	{{-- CSRF Token --}}
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -67,6 +67,7 @@
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#general" data-toggle="tab">{{{ trans('ninjaparade/content::general.tabs.general') }}}</a></li>
 		<li><a href="#attributes" data-toggle="tab">{{{ trans('ninjaparade/content::general.tabs.attributes') }}}</a></li>
+		<li><a href="#media" data-toggle="tab">Media</a></li>
 	</ul>
 
 	{{-- Tabs content --}}
@@ -219,6 +220,24 @@
 
 		</div>
 
+
+		<div class="tab-pane" id="media">
+			<a href="#" class="btn btn-info" data-toggle="modal" data-target="#mediaModal"><i class="fa fa-plus"></i> {{{ trans('button.upload') }}}</a>
+
+			<hr>
+			<div class="row">
+			  <div class="col-sm-6 col-md-4">
+			    <div class="thumbnail">
+			      <img data-src="holder.js/300x300" alt="...">
+			      <div class="caption">
+			        <h3>Thumbnail label</h3>
+			        <p>...</p>
+			        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</div>
 	</div>
 
 	{{-- Form actions --}}
