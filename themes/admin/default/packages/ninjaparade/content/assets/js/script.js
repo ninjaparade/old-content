@@ -23,12 +23,7 @@ $(function() {
 	    }
 	});
 
-	$.mediamanager('#mediaUploader', {
-		onSuccess : function(response)
-		{
-			console.log(response);
-		}
-	});
+
 
 	$('#dp-tags').selectize({
 		maxItems: 4,
