@@ -12,7 +12,7 @@
 {{ Asset::queue('moment', 'moment/js/moment.js') }}
 
 {{ Asset::queue('ninjaparade-content', 'ninjaparade/content::css/style.css', 'bootstrap') }}
-{{ Asset::queue('ninjaparade-content', 'ninjaparade/content::js/script.js', 'jquery') }}
+
 
 {{-- Partial Assets --}}
 @section('assets')
