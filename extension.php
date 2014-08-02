@@ -83,6 +83,7 @@ return [
 
 	'require' => [
 		'platform/admin',
+		'platform/media',
 	],
 
 	/*
