@@ -56,6 +56,12 @@
 @parent
 @stop
 
+@section('breadcrumb')
+@parent
+<li><a href="{{URL::route('posts.index')}}">All Posts</a></li>
+<li>{{Str::title($mode)}} Post</li>
+@show
+
 {{-- Page content --}}
 @section('content')
 

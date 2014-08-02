@@ -30,6 +30,12 @@
 @parent
 @stop
 
+@section('breadcrumb')
+@parent
+<li><a href="{{URL::route('tags.index')}}">All Tags</a></li>
+<li>{{Str::title($mode)}} Tags</li>
+@show
+
 {{-- Page content --}}
 @section('content')
 

@@ -33,6 +33,12 @@
 @parent
 @stop
 
+@section('breadcrumb')
+@parent
+<li><a href="{{URL::route('posts.index')}}">All Categories</a></li>
+<li>{{Str::title($mode)}} Category</li>
+@show
+
 {{-- Page content --}}
 @section('content')
 

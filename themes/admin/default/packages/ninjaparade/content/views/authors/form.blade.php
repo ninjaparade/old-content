@@ -20,6 +20,11 @@
 @parent
 @stop
 
+@section('breadcrumb')
+@parent
+<li><a href="{{URL::route('posts.index')}}">All Authors</a></li>
+<li>{{Str::title($mode)}} Author</li>
+@show
 {{-- Page content --}}
 @section('content')
 
