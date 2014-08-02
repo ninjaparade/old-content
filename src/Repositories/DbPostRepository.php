@@ -38,7 +38,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @var array
 	 */
 	protected $with = [
-		'categories', 'author'
+		'categories', 'author', 'tags'
 	];
 
 	/**
