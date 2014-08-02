@@ -14,8 +14,6 @@
 					<span class="label label-primary"><%= t.name %></span>
 				<% }); %>
 			</td>
-			
-			<td><%= r.content %></td>
 			<td>
 				<% if(r.publish_status == 1){ %>
 					<span class="label label-success">Published</span>
@@ -30,7 +28,7 @@
 					<span class="label label-success">Public</span>
 				<% } %>
 			</td>
-			<td><%= r.created_at %></td>
+			<td><%= moment(r.created_at).format("MMMM Do YY") %></td>
 		</tr>
 
 	<% }); %>
