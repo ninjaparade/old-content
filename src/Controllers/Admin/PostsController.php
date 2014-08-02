@@ -4,6 +4,7 @@ use DataGrid;
 use Input;
 use Lang;
 use Platform\Admin\Controllers\Admin\AdminController;
+use Platform\Media\Repositories\MediaRepositoryInterface;
 use Redirect;
 use Response;
 use View;
@@ -74,7 +75,7 @@ class PostsController extends AdminController {
 	 * @param  \Ninjaparade\Content\Repositories\PostRepositoryInterface  $post
 	 * @return void
 	 */
-	public function __construct(PostRepositoryInterface $post, AuthorRepositoryInterface $author, PosttypeRepositoryInterface $posttype, CategoryRepositoryInterface $category, TagRepositoryInterface $tag)
+	public function __construct(PostRepositoryInterface $post, AuthorRepositoryInterface $author, PosttypeRepositoryInterface $posttype, CategoryRepositoryInterface $category, TagRepositoryInterface $tag, MediaRepositoryInterface $media)
 	{
 		parent::__construct();
 
@@ -207,6 +208,12 @@ class PostsController extends AdminController {
 		}
 
 		return Response::json('Failed', 500);
+	}
+
+
+	public function postMedia()
+	{
+		
 	}
 
 	/**
