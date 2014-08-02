@@ -14,23 +14,26 @@ class CreatePostsTable extends Migration {
 	{
 		Schema::create('posts', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->integer('author_id')->unsigned();
-			$table->foreign('author_id')->references('id')->on('author')->onUpdate('cascade')->onDelete('restrict');
+			$table->increments('id', true)->unsigned();
+			$table->unsignedInteger('author_id');
 			$table->string('post_type')->nullable();
 			$table->string('slug')->unique();
 			$table->string('pullquote')->nullable();
 			$table->string('title');
 			$table->longText('content');
+			$table->string('cover_image')->nullable();
+			$table->string('images')->nullable();
 			$table->tinyInteger('publish_status')->default('0')->unsigned();
 			$table->tinyInteger('private')->default('0')->unsigned();
 			$table->timestamps();
 
 			$table->index('slug');
 			$table->index('author_id');
-			
+
 			$table->engine = 'InnoDB';
 		});
+
+		
 	}
 
 	/**
