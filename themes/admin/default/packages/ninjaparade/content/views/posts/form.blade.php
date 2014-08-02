@@ -7,8 +7,11 @@
 @stop
 
 {{-- Queue assets --}}
+{{ Asset::queue('dropzone.css', 'platform/media::css/dropzone.css') }}
+
 {{ Asset::queue('bootstrap.tabs', 'bootstrap/js/tab.js', 'jquery') }}
-{{ Asset::queue('content', 'ninjaparade/content::js/script.js', 'jquery') }}
+{{ Asset::queue('bootstrap.modal', 'bootstrap/js/modal.js', 'jquery') }}
+{{ Asset::queue('content', 'ninjaparade/content::js/script.js', ['jquery', 'dropzone', 'imperavi.redactor']) }}
 
 {{ Asset::queue('imperavi.redactor.js', 'imperavi/js/redactor.min.js', 'jquery') }}
 {{ Asset::queue('imperavi.redactor.css', 'imperavi/css/redactor.css') }}
@@ -19,33 +22,15 @@
 
 {{ Asset::queue('selectize.css', 'selectize/css/selectize.css', 'styles') }}
 
+{{ Asset::queue('dropzone.js', 'platform/media::js/dropzone/dropzone.js') }}
+{{ Asset::queue('mediamanager', 'platform/media::js/mediamanager.js', ['jquery', 'dropzone']) }}
 {{-- Inline scripts --}}
 @section('scripts')
 <script>
 	$(function() {
+
 		
-		$('#content').redactor({ 
-			minHeight: 300,
-			tidyHtml: true,
 
-		});
-
-		$(document).on('keyup', '#title', function()
-		{
-			$('#slug').val($(this).val().slugify());
-			
-		});
-
-		$('#tags').selectize({
-		    delimiter: ',',
-		    persist: false,
-		    create: function(input) {
-		        return {
-		            value: input,
-		            text: input
-		        }
-		    }
-		});
 	});
 </script>
 @parent
@@ -74,7 +59,7 @@
 
 {{-- Content form --}}
 <form id="content-form" action="{{ Request::fullUrl() }}" method="post" accept-char="UTF-8" autocomplete="off">
-
+				<a href="#" class="btn btn-info" data-toggle="modal" data-target="#mediaModal"><i class="fa fa-plus"></i> {{{ trans('button.upload') }}}</a>
 	{{-- CSRF Token --}}
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -125,7 +110,6 @@
 
 					<label for="author_id" class="control-label">{{{ trans('ninjaparade/content::posts/form.author_id') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.author_id_help') }}}"></i></label>
 
-
 					<select class="form-control" name="author_id" id="author_id" required>
 						@foreach ($authors as $author)
 							<option value="{{$author->id}}" {{ Input::old('author', $author->id) == $post->author_id ? ' selected="selected"' : null }}>{{$author->name}}</option>
@@ -156,7 +140,7 @@
 
 					<label for="pullquote" class="control-label">{{{ trans('ninjaparade/content::posts/form.pullquote') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.pullquote_help') }}}"></i></label>
 
-					<textarea type="text" class="form-control" name="pullquote" id="pullquote" placeholder="{{{ trans('ninjaparade/content::posts/form.pullquote') }}}" value="{{{ Input::old('pullquote', $post->pullquote) }}}"></textarea>
+					<textarea type="text" class="form-control redactor" name="pullquote" id="pullquote" placeholder="{{{ trans('ninjaparade/content::posts/form.pullquote') }}}" value="{{{ Input::old('pullquote', $post->pullquote) }}}"></textarea>
 
 					<span class="help-block">{{{ $errors->first('pullquote', ':message') }}}</span>
 
@@ -249,7 +233,7 @@
 
 				<a class="btn btn-default" href="{{{ URL::toAdmin('content/posts') }}}">{{{ trans('button.cancel') }}}</a>
 
-				<a class="btn btn-danger" data-toggle="modal" data-target="modal-confirm" href="{{ URL::toAdmin("content/posts/{$post->id}/delete") }}">{{{ trans('button.delete') }}}</a>
+				<a class="btn btn-danger" data-toggle="modal" data-target="modal-confirm" href="{{ URL::toAdmin("content/posts/{$post->id}/delete") }}">{{{ trans('button.delete') }}}"</a>
 
 			</div>
 
@@ -258,5 +242,8 @@
 	</div>
 
 </form>
+
+
+@include('ninjaparade/content::partials/dropzone')
 
 @stop

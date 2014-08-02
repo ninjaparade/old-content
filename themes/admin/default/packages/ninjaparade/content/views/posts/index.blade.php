@@ -12,7 +12,7 @@
 {{ Asset::queue('moment', 'moment/js/moment.js') }}
 
 {{ Asset::queue('ninjaparade-content', 'ninjaparade/content::css/style.css', 'bootstrap') }}
-{{ Asset::queue('ninjaparade-content', 'ninjaparade/content::js/script.js', 'jquery') }}
+
 
 {{-- Partial Assets --}}
 @section('assets')
@@ -150,14 +150,14 @@ $(function()
 	<thead>
 		<tr>
 			<th><input type="checkbox" name="checkAll" id="checkAll"></th>
-			<th class="sortable" data-sort="id">{{{ trans('ninjaparade/content::posts/table.id') }}}</th>
+			<th class="sortable" data-sort="id">{{{ trans('ninjaparade/content::posts/table.id') }}}  </th>
 			<th class="sortable" data-sort="title">{{{ trans('ninjaparade/content::posts/table.title') }}}</th>
-			<th class="sortable" data-sort="author_id">{{{ trans('ninjaparade/content::posts/table.author_id') }}}</th>
+			<th>{{{ trans('ninjaparade/content::posts/table.author_id') }}}</th>
 			<th class="sortable" data-sort="post_type">{{{ trans('ninjaparade/content::posts/table.post_type') }}}</th>
 			<th class="sortable" data-sort="slug">{{{ trans('ninjaparade/content::posts/table.slug') }}}</th>
 			<th class="sortable" >{{{ trans('ninjaparade/content::posts/table.category') }}}</th>
 			
-			<th class="sortable" data-sort="content">{{{ trans('ninjaparade/content::posts/table.content') }}}</th>
+			
 			<th class="sortable" data-sort="publish_status">{{{ trans('ninjaparade/content::posts/table.publish_status') }}}</th>
 			<th class="sortable" data-sort="private">{{{ trans('ninjaparade/content::posts/table.private') }}}</th>
 			<th class="sortable" data-sort="created_at">{{{ trans('ninjaparade/content::posts/table.created_at') }}}</th>
