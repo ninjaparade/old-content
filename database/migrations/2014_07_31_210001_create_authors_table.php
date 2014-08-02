@@ -14,7 +14,7 @@ class CreateAuthorsTable extends Migration {
 	{
 		Schema::create('authors', function(Blueprint $table)
 		{
-			$table->increments('id');
+			$table->increments('id', true)->unsigned();
 			$table->text('name');
 			$table->text('position')->nullable();
 			$table->text('bio')->nullable();
@@ -22,6 +22,13 @@ class CreateAuthorsTable extends Migration {
 			$table->timestamps();
 
 			$table->engine = 'InnoDB';
+		});
+
+
+		Schema::table('posts', function(Blueprint $table){
+
+			$table->foreign('author_id')->references('id')->on('authors');
+
 		});
 	}
 
