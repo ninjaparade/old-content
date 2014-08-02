@@ -273,10 +273,10 @@ return [
 		{
 			Route::group(['prefix' => admin_uri().'/content/posts', 'namespace' => 'Admin'], function()
 			{
-				Route::get('/', 'PostsController@index');
+				Route::get('/', ['as' => 'posts.index', 'uses' => 'PostsController@index'] );
 				Route::post('/', 'PostsController@executeAction');
 				Route::get('grid', 'PostsController@grid');
-				Route::get('create', 'PostsController@create');
+				Route::get('create', ['as' => 'posts.create', 'uses' => 'PostsController@create']);
 				Route::post('create', 'PostsController@store');
 				Route::get('{id}/edit', 'PostsController@edit');
 				Route::post('{id}/edit', 'PostsController@update');
@@ -293,7 +293,7 @@ return [
 		{
 			Route::group(['prefix' => admin_uri().'/content/authors', 'namespace' => 'Admin'], function()
 			{
-				Route::get('/', 'AuthorsController@index');
+				Route::get('/', ['as' => 'authors.index', 'uses' => 'AuthorsController@index']);
 				Route::post('/', 'AuthorsController@executeAction');
 				Route::get('grid', 'AuthorsController@grid');
 				Route::get('create', 'AuthorsController@create');
@@ -313,7 +313,7 @@ return [
 		{
 			Route::group(['prefix' => admin_uri().'/content/categories', 'namespace' => 'Admin'], function()
 			{
-				Route::get('/', 'CategoriesController@index');
+				Route::get('/', ['as' => 'categories.index', 'uses' =>'CategoriesController@index']);
 				Route::post('/', 'CategoriesController@executeAction');
 				Route::get('grid', 'CategoriesController@grid');
 				Route::get('create', 'CategoriesController@create');
@@ -333,7 +333,7 @@ return [
 		{
 			Route::group(['prefix' => admin_uri().'/content/tags', 'namespace' => 'Admin'], function()
 			{
-				Route::get('/', 'TagsController@index');
+				Route::get('/', ['as' => 'tags.index', 'uses' =>'TagsController@index']);
 				Route::post('/', 'TagsController@executeAction');
 				Route::get('grid', 'TagsController@grid');
 				Route::get('create', 'TagsController@create');
@@ -353,7 +353,7 @@ return [
 		{
 			Route::group(['prefix' => admin_uri().'/content/posttypes', 'namespace' => 'Admin'], function()
 			{
-				Route::get('/', 'PosttypesController@index');
+				Route::get('/', ['as' => 'posttypes.index', 'uses' => 'PosttypesController@index']);
 				Route::post('/', 'PosttypesController@executeAction');
 				Route::get('grid', 'PosttypesController@grid');
 				Route::get('create', 'PosttypesController@create');
