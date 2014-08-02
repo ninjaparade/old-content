@@ -8,7 +8,7 @@
 
 {{-- Queue assets --}}
 {{ Asset::queue('bootstrap.tabs', 'bootstrap/js/tab.js', 'jquery') }}
-{{ Asset::queue('content', 'ninjaparade/content::js/script.js', 'jquery') }}
+
 
 {{ Asset::queue('platform.slugify.js', 'platform/js/slugify.js', 'jquery') }}
 {{-- Inline scripts --}}
@@ -34,7 +34,7 @@
 @parent
 <li><a href="{{URL::route('tags.index')}}">All Tags</a></li>
 <li>{{Str::title($mode)}} Tags</li>
-@show
+@stop
 
 {{-- Page content --}}
 @section('content')

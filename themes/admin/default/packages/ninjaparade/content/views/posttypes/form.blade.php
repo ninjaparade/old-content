@@ -8,7 +8,6 @@
 
 {{-- Queue assets --}}
 {{ Asset::queue('bootstrap.tabs', 'bootstrap/js/tab.js', 'jquery') }}
-{{ Asset::queue('content', 'ninjaparade/content::js/script.js', 'jquery') }}
 
 {{ Asset::queue('platform.slugify.js', 'platform/js/slugify.js', 'jquery') }}
 {{-- Inline scripts --}}
@@ -35,7 +34,7 @@
 @parent
 <li><a href="{{URL::route('posttypes.index')}}">All Post Types</a></li>
 <li>{{Str::title($mode)}} Post Types</li>
-@show
+@stop
 {{-- Page content --}}
 @section('content')
 

@@ -7,7 +7,11 @@
 @stop
 
 {{-- Queue assets --}}
+{{ Asset::queue('imperavi.redactor.js', 'imperavi/js/redactor.min.js', 'jquery') }}
+{{ Asset::queue('imperavi.redactor.css', 'imperavi/css/redactor.css') }}
+
 {{ Asset::queue('bootstrap.tabs', 'bootstrap/js/tab.js', 'jquery') }}
+{{ Asset::queue('selectize.js', 'selectize/js/selectize.js', 'jquery') }}
 {{ Asset::queue('content', 'ninjaparade/content::js/script.js', 'jquery') }}
 
 {{-- Inline scripts --}}
@@ -24,7 +28,7 @@
 @parent
 <li><a href="{{URL::route('posts.index')}}">All Authors</a></li>
 <li>{{Str::title($mode)}} Author</li>
-@show
+@stop
 {{-- Page content --}}
 @section('content')
 
@@ -59,7 +63,8 @@
 
 					<label for="name" class="control-label">{{{ trans('ninjaparade/content::authors/form.name') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::authors/form.name_help') }}}"></i></label>
 
-					<textarea class="form-control" name="name" id="name" placeholder="{{{ trans('ninjaparade/content::authors/form.name') }}}">{{{ Input::old('name', $author->name) }}}</textarea>
+					<input type="text" class="form-control" name="name" id="name" placeholder="{{{ trans('ninjaparade/content::authors/form.name') }}}" value="{{{ Input::old('name', $author->name) }}}">
+					</div>
 
 					<span class="help-block">{{{ $errors->first('name', ':message') }}}</span>
 
@@ -67,9 +72,9 @@
 
 				<div class="form-group{{ $errors->first('position', ' has-error') }}">
 
-					<label for="position" class="control-label">{{{ trans('ninjaparade/content::authors/form.position') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::authors/form.position_help') }}}"></i></label>
+					<label for="position" class="control-label ">{{{ trans('ninjaparade/content::authors/form.position') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::authors/form.position_help') }}}"></i></label>
 
-					<textarea class="form-control" name="position" id="position" placeholder="{{{ trans('ninjaparade/content::authors/form.position') }}}">{{{ Input::old('position', $author->position) }}}</textarea>
+					<textarea class="form-control redactor" name="position" id="position" placeholder="{{{ trans('ninjaparade/content::authors/form.position') }}}">{{{ Input::old('position', $author->position) }}}</textarea>
 
 					<span class="help-block">{{{ $errors->first('position', ':message') }}}</span>
 
@@ -79,7 +84,7 @@
 
 					<label for="bio" class="control-label">{{{ trans('ninjaparade/content::authors/form.bio') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::authors/form.bio_help') }}}"></i></label>
 
-					<textarea class="form-control" name="bio" id="bio" placeholder="{{{ trans('ninjaparade/content::authors/form.bio') }}}">{{{ Input::old('bio', $author->bio) }}}</textarea>
+					<textarea class="form-control redactor" name="bio" id="bio" placeholder="{{{ trans('ninjaparade/content::authors/form.bio') }}}">{{{ Input::old('bio', $author->bio) }}}</textarea>
 
 					<span class="help-block">{{{ $errors->first('bio', ':message') }}}</span>
 

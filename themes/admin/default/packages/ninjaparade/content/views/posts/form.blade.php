@@ -8,20 +8,16 @@
 
 {{-- Queue assets --}}
 {{ Asset::queue('dropzone.css', 'platform/media::css/dropzone.css') }}
+{{ Asset::queue('imperavi.redactor.css', 'imperavi/css/redactor.css') }}
+{{ Asset::queue('selectize.css', 'selectize/css/selectize.css', 'styles') }}
 
 {{ Asset::queue('bootstrap.tabs', 'bootstrap/js/tab.js', 'jquery') }}
 {{ Asset::queue('bootstrap.modal', 'bootstrap/js/modal.js', 'jquery') }}
 {{ Asset::queue('content', 'ninjaparade/content::js/script.js', ['jquery', 'dropzone', 'imperavi.redactor']) }}
 
 {{ Asset::queue('imperavi.redactor.js', 'imperavi/js/redactor.min.js', 'jquery') }}
-{{ Asset::queue('imperavi.redactor.css', 'imperavi/css/redactor.css') }}
-
 {{ Asset::queue('platform.slugify.js', 'platform/js/slugify.js', 'jquery') }}
-
 {{ Asset::queue('selectize.js', 'selectize/js/selectize.js', 'jquery') }}
-
-{{ Asset::queue('selectize.css', 'selectize/css/selectize.css', 'styles') }}
-
 {{ Asset::queue('dropzone.js', 'platform/media::js/dropzone/dropzone.js') }}
 {{ Asset::queue('mediamanager', 'platform/media::js/mediamanager.js', ['jquery', 'dropzone']) }}
 {{-- Inline scripts --}}
@@ -29,7 +25,12 @@
 <script>
 	$(function() {
 
-		
+		$.mediamanager('#mediaUploader', {
+			onSuccess : function(response)
+			{
+				console.log(response);
+			}
+		});
 
 	});
 </script>
@@ -42,10 +43,9 @@
 @stop
 
 @section('breadcrumb')
-@parent
 <li><a href="{{URL::route('posts.index')}}">All Posts</a></li>
 <li>{{Str::title($mode)}} Post</li>
-@show
+@stop
 
 {{-- Page content --}}
 @section('content')
