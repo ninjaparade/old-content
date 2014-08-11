@@ -1,6 +1,7 @@
 <?php namespace Ninjaparade\Content\Models;
 
 use Platform\Attributes\Models\Entity;
+use Platform\Media\Models\Media;
 
 class Post extends Entity {
 
@@ -55,5 +56,14 @@ class Post extends Entity {
       return $this->belongsToMany('Ninjaparade\Content\Models\Category');
     }
 
+    public function image()
+    {
+        return $this->belongsTo('Platform\Media\Models\Media', 'image', 'id');
+    }
+
+    public function cover_image()
+    {
+        return $this->belongsTo('Platform\Media\Models\Media', 'cover_image', 'id');
+    }
 
 }
