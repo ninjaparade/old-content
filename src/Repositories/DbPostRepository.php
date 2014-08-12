@@ -84,7 +84,28 @@ class DbPostRepository implements PostRepositoryInterface {
 	{
 		return $this
 			->createModel()
+			->newQuery()
 			->where('id', (int) $id)
+			->with($this->with)
+			->first();
+	}
+
+	public function byPostType($posttype, $paginate = true, $count = 5)
+	{
+		return $this
+			->createModel()
+			->newQuery()
+			->where([ 'post_type' => $posttype, 'publish_status' => 1])
+			->with($this->with)
+			->paginate($count);
+	}
+
+	public function bySlug($slug)
+	{
+		return $this
+			->createModel()
+			->newQuery()
+			->where('slug', $slug)
 			->with($this->with)
 			->first();
 	}
