@@ -283,11 +283,6 @@ return [
 				Route::post('{id}/edit', 'PostsController@update');
 				Route::get('{id}/delete', 'PostsController@delete');
 			});
-
-			Route::group(['prefix' => 'content/posts', 'namespace' => 'Frontend'], function()
-			{
-				Route::get('/', 'PostsController@index');
-			});
 		});
 
 		Route::group(['namespace' => 'Ninjaparade\Content\Controllers'], function()
@@ -304,10 +299,7 @@ return [
 				Route::get('{id}/delete', 'AuthorsController@delete');
 			});
 
-			Route::group(['prefix' => 'content/authors', 'namespace' => 'Frontend'], function()
-			{
-				Route::get('/', 'AuthorsController@index');
-			});
+
 		});
 
 		Route::group(['namespace' => 'Ninjaparade\Content\Controllers'], function()
@@ -324,10 +316,7 @@ return [
 				Route::get('{id}/delete', 'CategoriesController@delete');
 			});
 
-			Route::group(['prefix' => 'content/categories', 'namespace' => 'Frontend'], function()
-			{
-				Route::get('/', 'CategoriesController@index');
-			});
+
 		});
 
 		Route::group(['namespace' => 'Ninjaparade\Content\Controllers'], function()
@@ -344,10 +333,7 @@ return [
 				Route::get('{id}/delete', 'TagsController@delete');
 			});
 
-			Route::group(['prefix' => 'content/tags', 'namespace' => 'Frontend'], function()
-			{
-				Route::get('/', 'TagsController@index');
-			});
+
 		});
 
 		Route::group(['namespace' => 'Ninjaparade\Content\Controllers'], function()
@@ -363,12 +349,43 @@ return [
 				Route::post('{id}/edit', 'PosttypesController@update');
 				Route::get('{id}/delete', 'PosttypesController@delete');
 			});
-
-			Route::group(['prefix' => 'content/posttypes', 'namespace' => 'Frontend'], function()
-			{
-				Route::get('/', 'PosttypesController@index');
-			});
 		});
+
+
+		/*Frontend routes*/
+
+		Route::group(['prefix' => 'posts/{posttypes}', 'namespace' => 'Ninjaparade\Content\Controllers\Frontend'], function()
+		{
+			Route::get('/', [ 'as' => 'content.index', 'uses' => 'PostsController@posts'] );
+			
+		});
+
+		Route::group(['prefix' => 'post/{posttype}/{slug}', 'namespace' => 'Ninjaparade\Content\Controllers\Frontend'], function()
+		{
+			Route::get('/', [ 'as' => 'content.single', 'uses' => 'PostsController@single'] );
+			
+		});
+
+
+		// Route::group(['prefix' => 'content/tags', 'namespace' => 'Frontend'], function()
+		// {
+		// 	Route::get('/', 'TagsController@index');
+		// });
+
+		// Route::group(['prefix' => 'content/categories', 'namespace' => 'Frontend'], function()
+		// {
+		// 	Route::get('/', 'CategoriesController@index');
+		// });
+
+		// Route::group(['prefix' => 'content/posts', 'namespace' => 'Frontend'], function()
+		// {
+		// 	Route::get('/', 'PostsController@index');
+		// });
+
+		// Route::group(['prefix' => 'content/authors', 'namespace' => 'Frontend'], function()
+		// {
+		// 	Route::get('/', 'AuthorsController@index');
+		// });
 	},
 
 	/*
