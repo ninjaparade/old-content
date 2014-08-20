@@ -14,7 +14,7 @@ class AlterPostsTable extends Migration {
 	{
 		Schema::table('posts', function(Blueprint $table)
 		{
-			$table->string('groups')->nullable();
+			$table->string('groups')->after('private')->nullable();
 		});
 	}
 
