@@ -208,7 +208,22 @@
 
 				</div>
 
+				<div class="form-group{{ $errors->first('groups', ' has-error') }}">
 
+					<label for="groups" class="control-label">{{{ trans('ninjaparade/content::posts/form.groups') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.groups_help') }}}"></i></label>
+
+					<div class="controls">
+						<select name="groups[]" id="groups" class="form-control" multiple="true">
+						@foreach ($groups as $group)
+							<option value="{{{ $group->id }}}"{{ in_array($group->id, $post->groups) ? ' selected="selected"' : null }}>{{{ $group->name }}}</option>
+						@endforeach
+						</select>
+					</div>
+
+
+					<span class="help-block">{{{ $errors->first('private', ':message') }}}</span>
+
+				</div>
 			</div>
 
 		</div>
