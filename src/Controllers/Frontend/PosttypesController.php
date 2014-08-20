@@ -3,6 +3,8 @@
 use Platform\Foundation\Controllers\BaseController;
 use View;
 
+use Ninjaparade\Content\Repositories\PosttypeRepositoryInterface;
+
 class PosttypesController extends BaseController {
 
 	/**
@@ -10,9 +12,18 @@ class PosttypesController extends BaseController {
 	 *
 	 * @return \Illuminate\View\View
 	 */
-	public function index()
+
+	public function __construct( PosttypeRepositoryInterface $posttype)
 	{
-		return View::make('ninjaparade/content::index');
+		parent::__construct();
+
+		// $this->posttype = $posttype;
 	}
+
+	public function posts($posttype)
+	{
+		
+	}
+
 
 }
