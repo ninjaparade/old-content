@@ -31,7 +31,17 @@ class Post extends Entity {
 	 */
 	protected $eavNamespace = 'ninjaparade/content.post';
 
+    public function getGroupsAttribute($value)
+    {
+        return json_decode($value);
+    }
 
+    public function setGroupsAttribute($value)
+    {
+        $this->attributes['groups'] = json_encode($value);
+    }
+
+    
 
 	public function author()
     {
