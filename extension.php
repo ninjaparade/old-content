@@ -367,6 +367,7 @@ return [
 		});
 
 
+		
 		// Route::group(['prefix' => 'content/tags', 'namespace' => 'Frontend'], function()
 		// {
 		// 	Route::get('/', 'TagsController@index');
