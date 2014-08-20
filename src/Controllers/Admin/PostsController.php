@@ -13,6 +13,9 @@ use Ninjaparade\Content\Repositories\AuthorRepositoryInterface;
 use Ninjaparade\Content\Repositories\PosttypeRepositoryInterface;
 use Ninjaparade\Content\Repositories\CategoryRepositoryInterface;
 use Ninjaparade\Content\Repositories\TagRepositoryInterface;
+use Platform\Users\Repositories\GroupRepositoryInterface;
+use Platform\Users\Repositories\UserRepositoryInterface;
+
 
 class PostsController extends AdminController {
 
@@ -59,6 +62,20 @@ class PostsController extends AdminController {
 	protected $tag;
 
 	/**
+	 * The Users repository.
+	 *
+	 * @var \Platform\Users\Repositories\UserRepositoryInterface
+	 */
+	protected $users;
+
+	/**
+	 * The Users Groups repository.
+	 *
+	 * @var \Platform\Users\Repositories\GroupRepositoryInterface
+	 */
+	protected $groups;
+
+	/**
 	 * Holds all the mass actions we can execute.
 	 *
 	 * @var array
@@ -75,15 +92,33 @@ class PostsController extends AdminController {
 	 * @param  \Ninjaparade\Content\Repositories\PostRepositoryInterface  $post
 	 * @return void
 	 */
-	public function __construct(PostRepositoryInterface $post, AuthorRepositoryInterface $author, PosttypeRepositoryInterface $posttype, CategoryRepositoryInterface $category, TagRepositoryInterface $tag, MediaRepositoryInterface $media)
+	public function __construct(
+		PostRepositoryInterface $post, 
+		AuthorRepositoryInterface $author, 
+		PosttypeRepositoryInterface $posttype, 
+		CategoryRepositoryInterface $category, 
+		TagRepositoryInterface $tag, 
+		MediaRepositoryInterface $media,
+		UserRepositoryInterface $users,
+		GroupRepositoryInterface $groups
+	)
 	{
 		parent::__construct();
 
 		$this->post     = $post;
+		
 		$this->author   = $author;
+		
 		$this->posttype = $posttype;
+		
 		$this->category = $category;
+		
 		$this->tag      = $tag;
+		
+		$this->users    = $users;
+		
+		$this->groups   = $groups;
+	
 	}
 
 	/**
@@ -225,12 +260,7 @@ class PostsController extends AdminController {
 	 */
 	protected function showForm($mode, $id = null)
 	{
-		// $post = $this->post->findAll();
-		// echo "<pre>";
-		// var_dump($post);
-		// echo "</pre>";
 
-		// die;
 		// Do we have a post identifier?
 		if (isset($id))
 		{
@@ -250,9 +280,9 @@ class PostsController extends AdminController {
 		$posttypes  = $this->posttype->findAll();
 		$categories = $this->category->findAll();
 		$tags       = $this->tag->findAll();
-
+		$groups     = $this->groups->findAll();
 		// Show the page
-		return View::make('ninjaparade/content::posts.form', compact('mode', 'post', 'authors', 'posttypes', 'categories', 'tags'));
+		return View::make('ninjaparade/content::posts.form', compact('mode', 'post', 'authors', 'posttypes', 'categories', 'tags', 'groups'));
 	}
 
 	/**
@@ -264,9 +294,10 @@ class PostsController extends AdminController {
 	 */
 	protected function processForm($mode, $id = null)
 	{
+		
 		// Get the input data
 		$data = Input::except('tags', 'category');
-	
+		
 		// Do we have a post identifier?
 		if ($id)
 		{
@@ -297,8 +328,6 @@ class PostsController extends AdminController {
 		if ($messages->isEmpty())
 		{
 			//add the category.
-			
-
 			$category = $this->category->findOrCreate( Input::get('category') );
 
 			$this->post->attachCategory($post, $category);

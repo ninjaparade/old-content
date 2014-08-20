@@ -2,7 +2,7 @@
 
 use Platform\Foundation\Controllers\BaseController;
 use View;
-
+use Redirect;
 use Ninjaparade\Content\Repositories\PostRepositoryInterface;
 
 class PostsController extends BaseController {
@@ -29,10 +29,13 @@ class PostsController extends BaseController {
 
 		$post = $this->post->bySlug($slug);
 
-
+		if( $post )
+		{
+			return View::make($view)->with(compact('post'));	
+		}else{
+			return Redirect::to('/')->withErrors("Sorry No Post found");
+		}
 		
-
-		return View::make($view)->with(compact('post'));
 	}
 	/**
 	 * Return the main view.
