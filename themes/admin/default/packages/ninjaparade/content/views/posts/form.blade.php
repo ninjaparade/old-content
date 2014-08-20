@@ -221,7 +221,7 @@
 					</div>
 
 
-					<span class="help-block">{{{ $errors->first('private', ':message') }}}</span>
+					<span class="help-block">{{{ $errors->first('groups', ':message') }}}</span>
 
 				</div>
 			</div>
