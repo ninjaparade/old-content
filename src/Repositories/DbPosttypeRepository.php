@@ -77,6 +77,11 @@ class DbPosttypeRepository implements PosttypeRepositoryInterface {
 			->first();
 	}
 
+	public function byPostType($posttype)
+	{
+		
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
