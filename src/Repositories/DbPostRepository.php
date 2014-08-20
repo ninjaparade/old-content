@@ -6,8 +6,17 @@ use Illuminate\Filesystem\Filesystem;
 use Ninjaparade\Content\Models\Post;
 use Symfony\Component\Finder\Finder;
 use Validator;
+use Sentinel;
+
 
 class DbPostRepository implements PostRepositoryInterface {
+
+	/**
+	 * The Sentinel User Object.
+	 *
+	 * @var string
+	 */
+	protected $user;
 
 	/**
 	 * The Eloquent content model.
@@ -29,7 +38,7 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @var array
 	 */
 	protected $rules = [
-
+		
 	];
 
 	/**
@@ -53,6 +62,8 @@ class DbPostRepository implements PostRepositoryInterface {
 		$this->model = $model;
 
 		$this->dispatcher = $dispatcher;
+
+		$this->user = Sentinel::getUser();
 	}
 
 	/**
@@ -92,22 +103,47 @@ class DbPostRepository implements PostRepositoryInterface {
 
 	public function byPostType($posttype, $paginate = true, $count = 5)
 	{
-		return $this
-			->createModel()
-			->newQuery()
-			->where([ 'post_type' => $posttype, 'publish_status' => 1])
-			->with($this->with)
-			->paginate($count);
+		if ( $this->user)
+		{
+			$posts = $this
+				->createModel()
+				->newQuery()
+				->where([ 'post_type' => $posttype, 'publish_status' => 1,])
+				->with($this->with)
+				->paginate($count);
+
+		}else{
+			$posts = $this
+				->createModel()
+				->newQuery()
+				->where([ 'post_type' => $posttype, 'publish_status' => 1, 'private' => 0])
+				->with($this->with)
+				->paginate($count);
+		}
+
+		return $posts;
 	}
 
 	public function bySlug($slug)
 	{
-		return $this
+		$post = $this
 			->createModel()
 			->newQuery()
 			->where('slug', $slug)
 			->with($this->with)
 			->first();
+
+		if ( ! $this->user && $post->private)
+		{	
+			return [];
+
+		}else{
+
+			return $post;
+		}
+
+
+		
 	}
 
 	public function attachCategory($post, $category)
