@@ -23,24 +23,12 @@ class Post extends Entity {
 		'values.attribute',
 	];
 
+	protected $touches = ['post', 'tags', 'author'];
 
-	 protected $touches = ['post', 'tags', 'author'];
 	/**
 	 * {@inheritDoc}
 	 */
 	protected $eavNamespace = 'ninjaparade/content.post';
-//
-//    public function getGroupsAttribute($value)
-//    {
-//        return json_decode($value);
-//    }
-//
-//    public function setGroupsAttribute($value)
-//    {
-//        $this->attributes['groups'] = json_encode($value);
-//    }
-
-
 
     public function getGroupsAttribute($groups)
     {
