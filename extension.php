@@ -253,7 +253,7 @@ return [
 		}
 
         $app->register('Ninjaparade\Content\Service\CommandServiceProvider');
-        
+
 	},
 
 	/*
