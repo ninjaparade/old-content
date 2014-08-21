@@ -1,9 +1,11 @@
 <?php namespace Ninjaparade\Content\Controllers\Frontend;
 
-use Platform\Foundation\Controllers\BaseController;
-use View;
-use Redirect;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Ninjaparade\Content\Repositories\PostRepositoryInterface;
+use Platform\Foundation\Controllers\BaseController;
+use Redirect;
+use View;
+use Sentinel;
 
 class PostsController extends BaseController {
 
@@ -25,16 +27,41 @@ class PostsController extends BaseController {
 
 	public function single($posttype, $slug)
 	{
-		$view = $this->getView($posttype. '-single');
+        $post = $this->post->bySlug($slug);
 
-		$post = $this->post->bySlug($slug);
-
-		if( $post )
+		if( ! $post )
 		{
-			return View::make($view)->with(compact('post'));	
-		}else{
-			return Redirect::to('/')->withErrors("Sorry No Post found");
+            throw new HttpException(404, 'Post does not exist.');
 		}
+
+        if( $post->private)
+        {
+            $pass = false;
+
+            if( $user = Sentinel::check())
+            {
+                $pass = true;
+
+                $groups = $post->groups;
+
+                $user_group = $user->groups->lists('id');
+
+                if ( ! empty($mediaGroups) and ! array_intersect($groups, $user_group))
+                {
+                    $pass = false;
+                }
+
+            }
+        }
+
+        if ( ! $pass)
+        {
+            throw new HttpException(403, "You don't have permission to access this content.");
+        }
+
+        $view = $this->getView($posttype. '-single');
+
+        return View::make($view)->with(compact('post'));
 		
 	}
 	/**
