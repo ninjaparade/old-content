@@ -1,7 +1,6 @@
 <?php namespace Ninjaparade\Content\Models;
 
 use Platform\Attributes\Models\Entity;
-use Platform\Media\Models\Media;
 
 class Post extends Entity {
 
@@ -30,18 +29,57 @@ class Post extends Entity {
 	 * {@inheritDoc}
 	 */
 	protected $eavNamespace = 'ninjaparade/content.post';
+//
+//    public function getGroupsAttribute($value)
+//    {
+//        return json_decode($value);
+//    }
+//
+//    public function setGroupsAttribute($value)
+//    {
+//        $this->attributes['groups'] = json_encode($value);
+//    }
 
-    public function getGroupsAttribute($value)
+
+
+    public function getGroupsAttribute($groups)
     {
-        return json_decode($value);
+        if ( ! $groups)
+        {
+            return [];
+        }
+
+        if (is_array($groups))
+        {
+            return $groups;
+        }
+
+        if ( ! $_groups = json_decode($groups, true))
+        {
+            throw new InvalidArgumentException("Cannot JSON decode groups [{$groups}].");
+        }
+
+        return $_groups;
     }
 
-    public function setGroupsAttribute($value)
+    public function setGroupsAttribute($groups)
     {
-        $this->attributes['groups'] = json_encode($value);
-    }
+        // If we get a string, let's just ensure it's a proper JSON string
+        if ( ! is_array($groups))
+        {
+            $groups = $this->getGroupsAttribute($groups);
+        }
 
-    
+        if ( ! empty($groups))
+        {
+            $groups = array_values(array_map('intval', $groups));
+            $this->attributes['groups'] = json_encode($groups);
+        }
+        else
+        {
+            $this->attributes['groups'] = '';
+        }
+    }
 
 	public function author()
     {
