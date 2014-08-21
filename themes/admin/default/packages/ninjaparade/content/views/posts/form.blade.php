@@ -203,7 +203,6 @@
 							<option value="1" {{ Input::old('private', 1) == $post->private ? ' selected="selected"' : null }}>Private</option>
 					</select>
 
-
 					<span class="help-block">{{{ $errors->first('private', ':message') }}}</span>
 
 				</div>
@@ -220,12 +219,10 @@
 						</select>
 					</div>
 
-
 					<span class="help-block">{{{ $errors->first('groups', ':message') }}}</span>
 
 				</div>
 			</div>
-
 		</div>
 
 		{{-- Attributes tab --}}
@@ -234,7 +231,6 @@
 			@widget('platform/attributes::entity.form', [$post])
 
 		</div>
-
 
 		<div class="tab-pane" id="media">
 			<a href="#" class="btn btn-info" data-toggle="modal" data-target="#mediaModal"><i class="fa fa-plus"></i> {{{ trans('button.upload') }}}</a>
