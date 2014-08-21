@@ -1,0 +1,58 @@
+@extends('layouts/default')
+
+{{-- Page title --}}
+@section('title')
+
+@parent
+@stop
+
+{{-- Queue Assets --}}
+
+
+{{-- Partial Assets --}}
+@section('assets')
+@parent
+@stop
+
+{{-- Inline Styles --}}
+@section('styles')
+@parent
+@stop
+
+{{-- Inline Scripts --}}
+@section('scripts')
+@parent
+@stop
+
+{{-- Page content --}}
+@section('content')
+
+<div class="blog-container">
+
+	<div class="blog-header full">
+        @content('blog-header-text')
+	</div>
+
+	<div class="container">
+
+			@foreach ($posts as $post)
+	  			<h2>{{$post->title}}</h2>
+				<p>{{$post->pullquote}}</p>
+				<p>{{$post->post_type}}</p>
+
+				<a href="{{URL::route('content.single', [$post->post_type, $post->slug])}}" title="View Full Post">View Full Post</a>
+			@endforeach
+		</div>
+	</div>
+
+
+	<div class="container">
+			{{$posts->links()}}
+
+	</div>
+
+
+</div>
+
+@stop
+
