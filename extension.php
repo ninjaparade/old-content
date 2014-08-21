@@ -251,6 +251,9 @@ return [
 			// Register a new attribute namespace
 			$app['Platform\Attributes\Models\Attribute']->registerNamespace($model);
 		}
+
+        $app->register('Ninjaparade\Content\Service\CommandServiceProvider');
+        
 	},
 
 	/*
