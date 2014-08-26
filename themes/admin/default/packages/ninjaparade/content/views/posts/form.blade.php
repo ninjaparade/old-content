@@ -25,10 +25,15 @@
 <script>
 	$(function() {
 
+		var app = {
+			_token : "{{csrf_token()}}",
+			url : "{{URL::route('post.get_media')}}"
+		};
+
 		$.mediamanager('#mediaUploader', {
 			onSuccess : function(response)
 			{
-				console.log(response);
+				$('#uploaded-media-row').append(response);
 			}
 		});
 
@@ -236,8 +241,9 @@
 			<a href="#" class="btn btn-info" data-toggle="modal" data-target="#mediaModal"><i class="fa fa-plus"></i> {{{ trans('button.upload') }}}</a>
 
 			<hr>
-			<div class="row">
-			  <div class="col-sm-6 col-md-4">
+			<hr>
+			<div class="row" id="uploaded-media-row">
+			 <!--  <div class="col-sm-6 col-md-4">
 			    <div class="thumbnail">
 			      <img data-src="holder.js/300x300" alt="...">
 			      <div class="caption">
@@ -246,7 +252,7 @@
 			        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
 			      </div>
 			    </div>
-			  </div>
+			  </div> -->
 			</div>
 		</div>
 	</div>
