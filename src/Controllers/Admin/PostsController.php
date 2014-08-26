@@ -118,6 +118,8 @@ class PostsController extends AdminController {
 		$this->users    = $users;
 		
 		$this->groups   = $groups;
+
+		$this->media 	= $media;
 	
 	}
 
@@ -246,9 +248,28 @@ class PostsController extends AdminController {
 	}
 
 
-	public function postMedia()
+	public function getMedia()
 	{
 		
+	}
+
+	public function uploadMedia()
+	{
+		$file = Input::file('file');
+
+		$tags = Input::get('tags', []);
+
+		if ($this->media->validForUpload($file))
+		{
+			if ($media = $this->media->upload($file, $tags))
+			{
+				
+				return View::make('ninjaparade/content::partials.media')->with(compact('media'));
+					//Response::json($media);
+			}
+		}
+
+		return Response::json($this->media->getError(), 400);
 	}
 
 	/**
