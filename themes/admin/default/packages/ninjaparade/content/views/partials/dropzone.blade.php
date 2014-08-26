@@ -5,7 +5,7 @@
 		<div class="modal-content" style="width: 660px;">
 
 			<div id="dropzone" style="height: 360px;overflow-y:scroll;">
-				<form action="{{ URL::toAdmin('media/upload') }}" class="media-dropzone dz-clickable" id="mediaUploader">
+				<form action="{{ URL::route('post.upload_media') }}" class="media-dropzone dz-clickable" id="mediaUploader">
 
 					{{-- CSRF Token --}}
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
