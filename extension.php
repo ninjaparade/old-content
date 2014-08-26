@@ -285,6 +285,9 @@ return [
 				Route::get('{id}/edit', 'PostsController@edit');
 				Route::post('{id}/edit', 'PostsController@update');
 				Route::get('{id}/delete', 'PostsController@delete');
+
+				Route::post('/upload/media', ['as' => 'post.upload_media', 'uses' => 'PostsController@uploadMedia']);
+				Route::post('/get/media', ['as' => 'post.get_media', 'uses' => 'PostsController@getMedia']);
 			});
 		});
 
