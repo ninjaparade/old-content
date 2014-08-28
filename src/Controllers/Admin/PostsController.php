@@ -8,6 +8,8 @@ use Platform\Media\Repositories\MediaRepositoryInterface;
 use Redirect;
 use Response;
 use View;
+use Media;
+use File;
 use Ninjaparade\Content\Repositories\PostRepositoryInterface;
 use Ninjaparade\Content\Repositories\AuthorRepositoryInterface;
 use Ninjaparade\Content\Repositories\PosttypeRepositoryInterface;
@@ -250,8 +252,10 @@ class PostsController extends AdminController {
 
 	public function getMedia()
 	{
-		
-	}
+		$media = $this->media->find(Input::get('media_id'));
+
+		return View::make('ninjaparade/content::partials.media')->with(compact('media'));
+	}	
 
 	public function uploadMedia()
 	{
@@ -263,15 +267,30 @@ class PostsController extends AdminController {
 		{
 			if ($media = $this->media->upload($file, $tags))
 			{
-				
-				return View::make('ninjaparade/content::partials.media')->with(compact('media'));
-					//Response::json($media);
+				$return = [ 'id' => $media['id'] ];
+
+				return Response::json($return);
 			}
 		}
 
 		return Response::json($this->media->getError(), 400);
 	}
 
+
+	public function deleteMedia()
+	{
+		$id = Input::get('media_id');
+		
+		$media = $this->media->find($id);
+
+		Media::delete($media->path);
+
+		File::delete(media_cache_path($media->thumbnail));
+
+		$media->delete();
+
+		return Response::json('Success');
+	}
 	/**
 	 * Shows the form.
 	 *
