@@ -288,6 +288,7 @@ return [
 
 				Route::post('/upload/media', ['as' => 'post.upload_media', 'uses' => 'PostsController@uploadMedia']);
 				Route::post('/get/media', ['as' => 'post.get_media', 'uses' => 'PostsController@getMedia']);
+				Route::get('/delete/media', ['as' => 'post.delete_media', 'uses' => 'PostsController@deleteMedia']);
 			});
 		});
 
