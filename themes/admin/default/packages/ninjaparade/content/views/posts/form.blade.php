@@ -25,15 +25,48 @@
 <script>
 	$(function() {
 
+		$('#uploaded-media-row').on('click', '.delete-image', function(event) {
+			event.preventDefault();
+			
+			var media_id = $(this).data('media-id');
+			var el = $('#media-' + media_id);
+			$.getJSON(app.delete_url, {media_id: media_id}, function(json, textStatus) {
+				$(el).slideUp('slow').remove();
+			});
+			
+
+		});
+
 		var app = {
 			_token : "{{csrf_token()}}",
-			url : "{{URL::route('post.get_media')}}"
+			get_url : "{{URL::route('post.get_media')}}",
+			delete_url : "{{ URL::route('post.delete_media') }}",
+
 		};
 
 		$.mediamanager('#mediaUploader', {
 			onSuccess : function(response)
 			{
-				$('#uploaded-media-row').append(response);
+				$('#images').val(response.id);
+				// console.log(response);
+				// $('#uploaded-media-row').append(response['html']);
+				$.ajax({
+					url: app.get_url,
+					type: 'POST',
+					dataType: 'html',
+					data: {_token: app._token, media_id: response.id },
+				})
+				.done(function(response) {
+					console.log(response);
+					$('#uploaded-media-row').append(response);
+				})
+				.fail(function() {
+					console.log("error");
+				})
+				.always(function() {
+					console.log("complete");
+				});
+				
 			}
 		});
 
@@ -228,7 +261,13 @@
 
 				</div>
 			</div>
+				{{-- Images --}}
+				<input type="text" name="images" value="" placeholder="" id="images">
+
+				{{-- conver image --}}
+				<input type="text" name="cover_image" value="" placeholder="">
 		</div>
+	
 
 		{{-- Attributes tab --}}
 		<div class="tab-pane clearfix" id="attributes">
@@ -243,16 +282,7 @@
 			<hr>
 			<hr>
 			<div class="row" id="uploaded-media-row">
-			 <!--  <div class="col-sm-6 col-md-4">
-			    <div class="thumbnail">
-			      <img data-src="holder.js/300x300" alt="...">
-			      <div class="caption">
-			        <h3>Thumbnail label</h3>
-			        <p>...</p>
-			        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-			      </div>
-			    </div>
-			  </div> -->
+			 <h1>HAY</h1>
 			</div>
 		</div>
 	</div>
