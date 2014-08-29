@@ -39,7 +39,7 @@ class ViewCreatorCommand extends Command {
 
         $contents = file_get_contents( __DIR__.'/stubs/index.stub' );
 
-        $name =$this->argument('name'). '-test-index.blade.php';
+        $name =$this->argument('name'). '-index.blade.php';
 
         $path = $theme .'/'. $name;
 
@@ -53,7 +53,7 @@ class ViewCreatorCommand extends Command {
     {
         $contents = file_get_contents( __DIR__.'/stubs/single.stub' );
 
-        $name =$this->argument('name'). '-test-single.blade.php';
+        $name =$this->argument('name'). '-single.blade.php';
 
         $path = $theme .'/'. $name;
 
