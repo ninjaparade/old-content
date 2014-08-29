@@ -69,6 +69,11 @@ class Post extends Entity {
         }
     }
 
+    public function setImagesAttribute($value)
+    {
+        $this->attributes['images'] = rtrim($value, ',');
+    }
+
 	public function author()
     {
         return $this->belongsTo('Ninjaparade\Content\Models\Author');
