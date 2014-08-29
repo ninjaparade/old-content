@@ -2,8 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-	@parent
-	: {{{ trans("ninjaparade/content::posts/general.{$mode}") }}} {{{ $post->exists ? '- ' . $post->name : null }}}
+	@parent : {{{ trans("ninjaparade/content::posts/general.{$mode}") }}} {{{ $post->exists ? '- ' . $post->name : null }}}
 @stop
 
 {{-- Queue assets --}}
@@ -25,6 +24,15 @@
 <script>
 	$(function() {
 
+		$('#uploaded-media-row').on('click', '.cover-image', function(event) {
+			event.preventDefault();
+
+			$('.cover-image').removeClass('btn-primary').addClass('btn-default').html("Set Cover Image");
+			$(this).html("Cover Image").removeClass('btn-default').addClass('btn-primary')
+			$('#cover_image').val( $(this).data('media-id') );
+
+		});
+
 		$('#uploaded-media-row').on('click', '.delete-image', function(event) {
 			event.preventDefault();
 			
@@ -32,6 +40,13 @@
 			var el = $('#media-' + media_id);
 			$.getJSON(app.delete_url, {media_id: media_id}, function(json, textStatus) {
 				$(el).slideUp('slow').remove();
+
+				var images = '';
+				$.each($('div[data-upload-image]'), function(index, val) {
+					images = images += ( $(val).data('upload-image') + ',') ;
+				});
+				
+				$('#images').val( images );
 			});
 			
 
@@ -46,10 +61,7 @@
 
 		$.mediamanager('#mediaUploader', {
 			onSuccess : function(response)
-			{
-				$('#images').val(response.id);
-				// console.log(response);
-				// $('#uploaded-media-row').append(response['html']);
+			{	
 				$.ajax({
 					url: app.get_url,
 					type: 'POST',
@@ -57,8 +69,15 @@
 					data: {_token: app._token, media_id: response.id },
 				})
 				.done(function(response) {
-					console.log(response);
 					$('#uploaded-media-row').append(response);
+
+					var images = '';
+					$.each($('div[data-upload-image]'), function(index, val) {
+						images = images += ( $(val).data('upload-image') + ',') ;
+					});
+					
+					$('#images').val( images );
+
 				})
 				.fail(function() {
 					console.log("error");
@@ -179,7 +198,7 @@
 
 					<label for="pullquote" class="control-label">{{{ trans('ninjaparade/content::posts/form.pullquote') }}} <i class="fa fa-info-circle" data-toggle="popover" data-content="{{{ trans('ninjaparade/content::posts/form.pullquote_help') }}}"></i></label>
 
-					<textarea type="text" class="form-control redactor" name="pullquote" id="pullquote" placeholder="{{{ trans('ninjaparade/content::posts/form.pullquote') }}}" value="{{{ Input::old('pullquote', $post->pullquote) }}}"></textarea>
+					<textarea type="text" class="form-control redactor" name="pullquote" id="pullquote" placeholder="{{{ trans('ninjaparade/content::posts/form.pullquote') }}}">{{{ Input::old('pullquote', $post->pullquote) }}}</textarea>
 
 					<span class="help-block">{{{ $errors->first('pullquote', ':message') }}}</span>
 
@@ -262,10 +281,10 @@
 				</div>
 			</div>
 				{{-- Images --}}
-				<input type="text" name="images" value="" placeholder="" id="images">
+				<input type="text" name="images" value="{{{ Input::old('images', $post->images) }}}" placeholder="" id="images">
 
 				{{-- conver image --}}
-				<input type="text" name="cover_image" value="" placeholder="">
+				<input type="text" name="cover_image" value="{{{ Input::old('cover_image', $post->cover_image) }}}" id="cover_image" placeholder="">
 		</div>
 	
 
@@ -282,7 +301,31 @@
 			<hr>
 			<hr>
 			<div class="row" id="uploaded-media-row">
+
+			@if($post->images != "")
+			<?php $images = explode(',', $post->images) ?>
+
+			@foreach($images as $media)
+
+				<div class="col-sm-6 col-md-4" id="media-{{$media}}" data-upload-image="{{$media}}">
+				    <div class="thumbnail">
+				      <img src="@media($media)" alt="...">
+				      <div class="caption">
+				        <p><span class="label label-default">{{$media}}</span></p>
+				        
+				        <p>
+				        	<button type="submit" class="btn btn-danger delete-image" data-media-id="{{ $media}}">Delete</button>	
+				          <button class="btn btn-default cover-image" role="button" data-media-id="{{ $media}}" data-toggle="button">Set Cover Image</button>
+				        </p>
+				      </div>
+				    </div>
+				  </div>
+			@endforeach
+
+			@else
 			 <h1>HAY</h1>
+			@endif
+			
 			</div>
 		</div>
 	</div>
