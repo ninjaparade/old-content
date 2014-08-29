@@ -38,7 +38,11 @@ class DbPostRepository implements PostRepositoryInterface {
 	 * @var array
 	 */
 	protected $rules = [
-		
+		'title'    => 'required|max:255',
+		'slug'    => 'required|max:255|unique:posts',
+		'post_type'    => 'required',
+		'content'    => 'required',
+		'pullquote'    => 'required'
 	];
 
 	/**
@@ -176,6 +180,10 @@ class DbPostRepository implements PostRepositoryInterface {
 	 */
 	public function validForUpdate($id, array $data)
 	{
+		$post = $this->find($id);
+		
+		$this->rules['slug'] .= ",slug,{$post->slug},slug";
+
 		return $this->validatePost($data);
 	}
 
