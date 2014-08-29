@@ -28,12 +28,14 @@ class PostsController extends BaseController {
 	public function single($posttype, $slug)
 	{
         $post = $this->post->bySlug($slug);
-
+        
 		if( ! $post )
 		{
             throw new HttpException(404, 'Post does not exist.');
 		}
 
+		$pass = true;
+		
         if( $post->private)
         {
             $pass = false;
