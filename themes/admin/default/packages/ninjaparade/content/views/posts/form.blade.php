@@ -19,6 +19,7 @@
 {{ Asset::queue('selectize.js', 'selectize/js/selectize.js', 'jquery') }}
 {{ Asset::queue('dropzone.js', 'platform/media::js/dropzone/dropzone.js') }}
 {{ Asset::queue('mediamanager', 'platform/media::js/mediamanager.js', ['jquery', 'dropzone']) }}
+
 {{-- Inline scripts --}}
 @section('scripts')
 <script>
@@ -26,7 +27,6 @@
 
 		$('#uploaded-media-row').on('click', '.cover-image', function(event) {
 			event.preventDefault();
-
 			$('.cover-image').removeClass('btn-primary').addClass('btn-default').html("Set Cover Image");
 			$(this).html("Cover Image").removeClass('btn-default').addClass('btn-primary')
 			$('#cover_image').val( $(this).data('media-id') );
@@ -97,6 +97,11 @@
 {{-- Inline styles --}}
 @section('styles')
 @parent
+<style type="text/css" media="screen">
+	.image-box .thumbnail > img{
+		max-width: 200px !important;
+	}
+</style>
 @stop
 
 @section('breadcrumb')
@@ -307,7 +312,7 @@
 
 			@foreach($images as $media)
 
-				<div class="col-sm-6 col-md-4" id="media-{{$media}}" data-upload-image="{{$media}}">
+				<div class="col-sm-6 col-md-4 image-box" id="media-{{$media}}" data-upload-image="{{$media}}">
 				    <div class="thumbnail">
 				      <img src="@media($media)" alt="...">
 				      <div class="caption">
@@ -315,7 +320,12 @@
 				        
 				        <p>
 				        	<button type="submit" class="btn btn-danger delete-image" data-media-id="{{ $media}}">Delete</button>	
-				          <button class="btn btn-default cover-image" role="button" data-media-id="{{ $media}}" data-toggle="button">Set Cover Image</button>
+				        	@if($post->cover_image == $media)
+				        		<button class="btn btn-primary cover-image" role="button" data-media-id="{{ $media}}">Cover Image</button>
+				        	@else
+				        		<button class="btn btn-default cover-image" role="button" data-media-id="{{ $media}}">Set Cover Image</button>
+				        	@endif
+				          
 				        </p>
 				      </div>
 				    </div>
