@@ -29,15 +29,10 @@ class CommandServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-
-        foreach([
-                    'Creator'
-
-                ] as $command)
+        foreach(['Creator'] as $command)
         {
             $this->{"register$command"}();
         }
-
     }
 
     protected function registerCreator()
