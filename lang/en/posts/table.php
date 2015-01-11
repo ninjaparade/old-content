@@ -3,15 +3,12 @@
 return [
 
 	'id' => 'Id',
-	'author_id' => 'Author_Id',
-	'post_type' => 'Post_Type',
+	'author_id' => 'Author',
+	'post_type' => 'Type',
 	'slug' => 'Slug',
 	'excerpt' => 'Excerpt',
 	'title' => 'Title',
-	'body' => 'Body',
-	'cover_image' => 'Cover_Image',
-	'images' => 'Images',
-	'publish_status' => 'Publish_Status',
+	'publish_status' => 'Status',
 	'private' => 'Private',
 	'created_at' => 'Created At',
 

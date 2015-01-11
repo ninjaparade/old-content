@@ -10,9 +10,7 @@
 			<td><%= r.slug %></td>
 			<td><%= r.excerpt %></td>
 			<td><%= r.title %></td>
-			<td><%= r.body %></td>
-			<td><%= r.cover_image %></td>
-			<td><%= r.images %></td>
+			
 			<td><%= r.publish_status %></td>
 			<td><%= r.private %></td>
 			<td><%= r.created_at %></td>

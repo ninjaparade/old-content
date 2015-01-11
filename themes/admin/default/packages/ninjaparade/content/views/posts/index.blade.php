@@ -200,9 +200,7 @@
 			<th class="sortable" data-sort="slug">{{{ trans('ninjaparade/content::posts/table.slug') }}}</th>
 			<th class="sortable" data-sort="excerpt">{{{ trans('ninjaparade/content::posts/table.excerpt') }}}</th>
 			<th class="sortable" data-sort="title">{{{ trans('ninjaparade/content::posts/table.title') }}}</th>
-			<th class="sortable" data-sort="body">{{{ trans('ninjaparade/content::posts/table.body') }}}</th>
-			<th class="sortable" data-sort="cover_image">{{{ trans('ninjaparade/content::posts/table.cover_image') }}}</th>
-			<th class="sortable" data-sort="images">{{{ trans('ninjaparade/content::posts/table.images') }}}</th>
+			
 			<th class="sortable" data-sort="publish_status">{{{ trans('ninjaparade/content::posts/table.publish_status') }}}</th>
 			<th class="sortable" data-sort="private">{{{ trans('ninjaparade/content::posts/table.private') }}}</th>
 			<th class="sortable" data-sort="created_at">{{{ trans('ninjaparade/content::posts/table.created_at') }}}</th>
