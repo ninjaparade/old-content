@@ -156,6 +156,7 @@ return [
 		
 		Route::group([
 				'prefix'    => admin_uri().'/content/posts',
+				'prefix'    => admin_uri().'/np/content/posts',
 				'namespace' => 'Ninjaparade\Content\Controllers\Admin',
 			], function()
 			{
@@ -183,6 +184,7 @@ return [
 
 					Route::group([
 				'prefix'    => admin_uri().'/content/authors',
+				'prefix'    => admin_uri().'/np/content/authors',
 				'namespace' => 'Ninjaparade\Content\Controllers\Admin',
 			], function()
 			{
@@ -210,6 +212,7 @@ return [
 
 					Route::group([
 				'prefix'    => admin_uri().'/content/categories',
+				'prefix'    => admin_uri().'/np/content/categories',
 				'namespace' => 'Ninjaparade\Content\Controllers\Admin',
 			], function()
 			{
@@ -237,6 +240,7 @@ return [
 
 					Route::group([
 				'prefix'    => admin_uri().'/content/posttypes',
+				'prefix'    => admin_uri().'/np/content/posttypes',
 				'namespace' => 'Ninjaparade\Content\Controllers\Admin',
 			], function()
 			{
