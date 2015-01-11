@@ -553,6 +553,7 @@ return [
 						'name'  => 'Categories',
 						'class' => 'fa fa-circle-o',
 						'uri'   => 'content/categories',
+						'uri'   => 'np/content/categories',
 					],
 					[
 						'slug'  => 'admin-ninjaparade-content-posttype',
