@@ -4,7 +4,7 @@ use InvalidArgumentException;
 use Cartalyst\Tags\TaggableTrait;
 use Cartalyst\Tags\TaggableInterface;
 
-class Post extends Model implements TaggableInterface {
+class Post extends BaseModel implements TaggableInterface {
 
 	use TaggableTrait;
 
