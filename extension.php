@@ -85,7 +85,6 @@ return [
 	*/
 
 	'require' => [
-		
 			'platform/access',
 			'platform/dashboard',
 	],
