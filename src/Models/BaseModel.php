@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Platform\Attributes\Traits\EntityTrait;
 use Cartalyst\Support\Traits\NamespacedEntityTrait;
 
-class Post extends Model implements EntityInterface {
+class BaseModel extends Model implements EntityInterface {
 
 	use EntityTrait, NamespacedEntityTrait;
 
